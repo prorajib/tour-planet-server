@@ -23,8 +23,14 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    const database = client.db('tourPlanet');
-    const toursCollection = database.collection('tourplans');
+    const database = client.db('tourMaster');
+    const destinationCollection = database.collection('destinations');
+    // const bookingCollection = database.collection('placeOrder');
+    app.get('/allbookings', async (req, res) => {
+      const cursor = destinationCollection.find({});
+      const destionations = await cursor.toArray();
+      res.send(destionations);
+    });
   } finally {
     //  await client.close();
   }
