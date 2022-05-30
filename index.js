@@ -28,17 +28,26 @@ async function run() {
     const destinationCollection = database.collection('destinations');
     // const bookingCollection = database.collection('placeOrder');
 
+    // showing all bookings using get api
     app.get('/allbookings', async (req, res) => {
       const cursor = destinationCollection.find({});
       const destinations = await cursor.toArray();
       res.send(destinations);
     });
 
+    // showing single booking using get api
+    app.get('/allbookings/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const singlebooking = await destinationCollection.findOne(query);
+      res.send(singlebooking);
+    });
     // insert new destination using POST api
     app.post('/allbookings', async (req, res) => {
       const destination = req.body;
       const result = await destinationCollection.insertOne(destination);
       res.json(result);
+      xc;
     });
   } finally {
     //  await client.close();
