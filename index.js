@@ -31,6 +31,7 @@ async function run() {
     app.get('/allbookings', async (req, res) => {
       const cursor = destinationCollection.find({});
       const destinations = await cursor.toArray();
+      res.send(destinations);
     });
 
     // insert new destination using POST api
