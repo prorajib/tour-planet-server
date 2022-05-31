@@ -26,7 +26,7 @@ async function run() {
     await client.connect();
     const database = client.db('tourMaster');
     const destinationCollection = database.collection('destinations');
-    // const bookingCollection = database.collection('placeOrder');
+    const bookingCollection = database.collection('placeOrder');
 
     // showing all bookings using get api
     app.get('/allbookings', async (req, res) => {
@@ -38,19 +38,20 @@ async function run() {
     // showing single booking using get api
     app.get('/allbookings/:id', async (req, res) => {
       const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const singlebooking = await destinationCollection.findOne(query);
-      res.send(singlebooking);
+      const query = { _id: id };
+      console.log(query);
+      const singleBookingInfo = await destinationCollection.findOne(query);
+      console.log(singleBookingInfo);
+      res.send(singleBookingInfo);
     });
     // insert new destination using POST api
     app.post('/allbookings', async (req, res) => {
       const destination = req.body;
       const result = await destinationCollection.insertOne(destination);
       res.json(result);
-      xc;
     });
   } finally {
-    //  await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
