@@ -53,7 +53,7 @@ async function run() {
     app.post('/placebooking', async (req, res) => {
       const bookingInfo = req.body;
       const result = await bookingCollection.insertOne(bookingInfo);
-      console.log('a document was inserted by id', result);
+      //console.log('a document was inserted by id', result);
       res.json(result);
     });
 
@@ -61,9 +61,9 @@ async function run() {
     app.get('/mybooking/:email', async (req, res) => {
       const email = req.params.email;
 
-      const mybookings = bookingCollection.find({ email }).toArray();
+      const mybookings = await bookingCollection.find({ email }).toArray();
 
-      res.json(mybookings);
+      res.send(mybookings);
     });
 
     // Delete single booked information
