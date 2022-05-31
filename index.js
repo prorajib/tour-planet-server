@@ -39,15 +39,20 @@ async function run() {
     app.get('/allbookings/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: id };
-      console.log(query);
       const singleBookingInfo = await destinationCollection.findOne(query);
-      console.log(singleBookingInfo);
       res.send(singleBookingInfo);
     });
     // insert new destination using POST api
     app.post('/allbookings', async (req, res) => {
       const destination = req.body;
       const result = await destinationCollection.insertOne(destination);
+      res.json(result);
+    });
+
+    app.post('/placebooking', async (req, res) => {
+      const bookingInfo = req.body;
+      const result = await bookingCollection.insertOne(bookingInfo);
+      console.log('a document was inserted by id', result);
       res.json(result);
     });
   } finally {
