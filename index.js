@@ -60,6 +60,7 @@ async function run() {
     // show all confirmed booking
     app.get('/mybooking/:email', async (req, res) => {
       const email = req.params.email;
+
       const mybookings = bookingCollection.find({ email }).toArray();
 
       res.json(mybookings);
