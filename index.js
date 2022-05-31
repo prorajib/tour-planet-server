@@ -50,7 +50,7 @@ async function run() {
     });
 
     // insert new booking confirmation using POST api
-    app.post('/mybooking', async (req, res) => {
+    app.post('/placebooking', async (req, res) => {
       const bookingInfo = req.body;
       const result = await bookingCollection.insertOne(bookingInfo);
       console.log('a document was inserted by id', result);
