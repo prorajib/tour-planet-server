@@ -50,7 +50,7 @@ async function run() {
     });
 
     // insert new booking confirmation using POST api
-    app.post('/placebooking', async (req, res) => {
+    app.post('/mybooking', async (req, res) => {
       const bookingInfo = req.body;
       const result = await bookingCollection.insertOne(bookingInfo);
       console.log('a document was inserted by id', result);
@@ -58,11 +58,14 @@ async function run() {
     });
 
     // show all confirmed booking
-    app.get('/placebooking', async (req, res) => {
-      const cursor = bookingCollection.find({});
-      const bookings = await cursor.toArray();
-      res.json(bookings);
+    app.get('/mybooking/:email', async (req, res) => {
+      const email = req.params.email;
+      const mybookings = bookingCollection.find({ email }).toArray();
+
+      res.json(mybookings);
     });
+
+    // Delete single booked information
   } finally {
     // await client.close();
   }
