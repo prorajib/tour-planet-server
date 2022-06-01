@@ -78,11 +78,11 @@ async function run() {
     app.put('/mybooking/:id', async (req, res) => {
       const updateId = req.params.id;
       const updateStatus = req.body;
-      const filter = { _id: ObjectId(id) };
+      const filter = { _id: ObjectId(updateId) };
       const options = { upsert: true };
       const updateDoc = {
         $set: {
-          status: updateStatus,
+          status: updateStatus.status,
         },
       };
       const updatedBooking = await movies.updateOne(filter, updateDoc, options);
