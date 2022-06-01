@@ -74,6 +74,21 @@ async function run() {
       res.json(deleteBooking);
     });
 
+    // update api for status
+    app.put('/mybooking/:id', async (req, res) => {
+      const updateId = req.params.id;
+      const updateStatus = req.body;
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          status: updateStatus,
+        },
+      };
+      const updatedBooking = await movies.updateOne(filter, updateDoc, options);
+      res.json(updatedBooking);
+    });
+
     app.get('/manageallorders', async (req, res) => {
       const cursor = bookingCollection.find({});
       const manageBookings = await cursor.toArray();
@@ -88,6 +103,7 @@ run().catch(console.dir);
 app.get('/', (req, res) => {
   res.send('Tour planet Server is running');
 });
+
 app.listen(port, () => {
   console.log('listening port', port);
 });
