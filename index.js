@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const ObjectId = require('mongodb').ObjectId;
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const { application } = require('express');
+//const { application } = require('express');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -87,7 +87,11 @@ async function run() {
           status: updateStatus.status,
         },
       };
-      const updatedBooking = await movies.updateOne(filter, updateDoc, options);
+      const updatedBooking = await bookingCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
       res.json(updatedBooking);
     });
 
