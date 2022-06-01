@@ -73,6 +73,12 @@ async function run() {
       const deleteBooking = await bookingCollection.deleteOne(query);
       res.json(deleteBooking);
     });
+
+    app.get('/manageallorders', async (req, res) => {
+      const cursor = bookingCollection.find({});
+      const manageBookings = await cursor.toArray();
+      res.send(manageBookings);
+    });
   } finally {
     // await client.close();
   }
